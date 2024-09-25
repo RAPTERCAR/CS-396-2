@@ -3,7 +3,7 @@ import bcrypt
 
 def sys_init():
     #connect to database
-    conn = sqlite3.connect('library.db')
+    conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
 
    # Create a table if it doesn't exist
@@ -27,3 +27,9 @@ def sys_init():
     cursor.execute(
        "INSERT OR IGNORE INTO users (username, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)",
        ('user2', password2_hash, 'Jane', 'Smith', 'admin'))
+    
+     # Commit the changes
+    conn.commit()
+
+   # Close the connection
+    conn.close()

@@ -14,7 +14,7 @@ document.getElementById('login').addEventListener('click', function() {
     .then(data => {
       if (data.status == 'ok') {
           // Redirect to /library on success
-          window.location.href = 'library';
+          window.location.href = 'home';
       } else {
         // Update the 'msgs' div with the error message
          document.getElementById('msgs').innerHTML = '<p style= "color:red;">Error: ..........</p>';
