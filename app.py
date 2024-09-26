@@ -75,6 +75,7 @@ def accessData():
         if (data['request'] == 'createQuiz'):
             qN = data['qName']
             tL = data['tLimit']
+            print('test')
             temp = createQuiz(qN,tL)
             response = {'output' : temp}
             return jsonify(response)
