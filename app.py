@@ -65,3 +65,21 @@ def profile():
         
     else:
         return redirect('/?messages=Please login again!')
+    
+@app.route('/data', methods=['POST','GET'])
+def accessData():
+    data = request.json #get data from libScript.js or patScript.js
+    if data:
+        #view all users
+        if (data['request'] == 'createQuiz'):
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
