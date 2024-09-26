@@ -53,6 +53,13 @@ def sys_init():
     cursor.execute(
        "INSERT OR IGNORE INTO users (username, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)",
        ('user2', password2_hash, 'Jane', 'Smith', 'admin'))
+    cursor.execute(
+        "INSERT OR IGNORE INTO quiz (qName, time) VALUES (?,?)",
+        ('Quiz1', '10'))
+    cursor.execute(
+        "INSERT OR IGNORE INTO quiz (qName, time) VALUES (?,?)",
+        ('Quiz2', '15'))
+    
     
      # Commit the changes
     conn.commit()
