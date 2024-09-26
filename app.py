@@ -61,7 +61,7 @@ def profile():
             return render_template('home.html', user_info=user)
         
         else:
-            return render_template('home.html', user_info=user)
+            return render_template('admin.html', user_info=user)
         
     else:
         return redirect('/?messages=Please login again!')
