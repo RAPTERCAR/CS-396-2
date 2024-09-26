@@ -11,3 +11,9 @@ let statsVisible = false;
         statsVisible = false;
       }
     });
+
+const quizButton = document.getElementById("quiz-button");
+quizButton.addEventListener("click", () => {
+  window.location.href = 'quiz';
+
+});
