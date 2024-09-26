@@ -72,6 +72,7 @@ def accessData():
     if data:
         #view all users
         if (data['request'] == 'createQuiz'):
+            print("hiello");
 
 
 @app.route('/logout')
