@@ -16,20 +16,23 @@ def sys_init():
             last_name TEXT,
             role TEXT
         )
-                   
+           ''')        
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS quiz (
             qid INTEGER PRIMARY KEY,
             qName TEXT UNIQUE,
             time INTEGER
         )
-                   
+                   ''')
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS questions (
             quid INTEGER PRIMARY KEY,
             quiz INTEGER,
             desc TEXT,
             FOREIGN KEY(quiz) REFERENCES artist(qid)
         )
-                   
+              ''')
+    cursor.execute('''     
         CREATE TABLE IF NOT EXISTS answers (
             aid INTEGER PRIMARY KEY,
             quest INTEGER,
@@ -37,9 +40,9 @@ def sys_init():
             isCorrect INTEGER,
             FOREIGN KEY(quest) REFERENCES artist(quid)
         )
+        ''')
         
-        
-    ''')
+    
 
     password1_hash = bcrypt.hashpw(b'secret1', bcrypt.gensalt())
     password2_hash = bcrypt.hashpw(b'secret2', bcrypt.gensalt())
