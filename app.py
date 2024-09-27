@@ -71,6 +71,7 @@ def profile():
 def accessData():
     data = request.json #get data from libScript.js or patScript.js
     if data:
+        #admin functions
         #view all users
         if (data['request'] == 'createQuiz'):
             qN = data['qName']
@@ -86,7 +87,8 @@ def accessData():
             return jsonify(response)
         if (data['request'] == 'viewSpec'):
             print("test3")
-            
+        #User functions
+        
             
 
 
