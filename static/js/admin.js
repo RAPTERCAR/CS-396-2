@@ -1,5 +1,5 @@
 window.onload=function(){    
-    
+    //creacte quiz
     document.getElementById('submitQ').addEventListener('click', function() {
         // Example AJAX call using fetch API
         console.log('sending data');
@@ -21,7 +21,8 @@ window.onload=function(){
             console.error('Error:', error);
         });
     });
-    document.getElementById('viewQ').addEventListener('click', function() {
+    //view all quizzes
+    document.getElementById('viewAll').addEventListener('click', function() {
         // Example AJAX call using fetch API
         console.log('sending data');
         fetch('/data', {
@@ -29,9 +30,30 @@ window.onload=function(){
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 'request': "createQuiz",
-                                'qName': document.getElementById('qName').value,
-                                "tLimit": document.getElementById('tLimit').value}),
+            body: JSON.stringify({ 'request': "viewAll",
+        }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('test');
+            document.getElementById('quizView').innerHTML = data.output;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    //view spcific quiz
+    document.getElementById('viewSpec').addEventListener('click', function() {
+        // Example AJAX call using fetch API
+        console.log('sending data');
+        fetch('/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'request': "viewSpec",
+                'ID': document.getElementById('vSpec').value,
+        }),
         })
         .then(response => response.json())
         .then(data => {

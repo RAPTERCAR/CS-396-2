@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, session
 from init import sys_init
 from uLogin import login, User
-from dbManip import createQuiz
+from dbManip import createQuiz, viewAllQuiz
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -79,6 +79,14 @@ def accessData():
             temp = createQuiz(qN,tL)
             response = {'output' : temp}
             return jsonify(response)
+        if (data['request'] == 'viewAll'):
+            print("test2")
+            temp = viewAllQuiz()
+            response = {'output' : temp}
+            return jsonify(response)
+        if (data['request'] == 'viewSpec'):
+            print("test3")
+            
             
 
 
