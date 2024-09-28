@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, session
 from init import sys_init
 from uLogin import login, User
-from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz
-from dbManip import createQuiz, viewAllQuiz
+from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz, addQuestion, addAnswer
 import sqlite3
 
 app = Flask(__name__)
@@ -74,7 +73,7 @@ def accessData():
     data = request.json #get data from libScript.js or patScript.js
     if data:
         #admin functions
-        #view all users
+        #create a quiz
         if (data['request'] == 'createQuiz'):
             qN = data['qName']
             tL = data['tLimit']
@@ -82,17 +81,40 @@ def accessData():
             temp = createQuiz(qN,tL)
             response = {'output' : temp}
             return jsonify(response)
+        #view all quizzes
         if (data['request'] == 'viewAll'):
             print("test2")
             temp = viewAllQuiz()
             response = {'output' : temp}
             return jsonify(response)
+        #view quiz details
         if (data['request'] == 'viewSpec'):
             print("test3")
             qid = data['ID']
             temp = viewSpecQuiz(qid)
             response = {'output' : temp}
             return jsonify(response)
+        #add a question
+        if (data['request'] == 'addQue'):
+            print("test4")
+            qid = data['ID']
+            dets = data['Det']
+            temp = addQuestion(qid,dets)
+            temp2 = viewSpecQuiz(qid)
+            response = {'output': temp, 'display': temp2}
+            return jsonify(response)
+        #add an answer
+        if (data['request'] == 'addAns'):
+            print("test5")
+            qid = data['ID']
+            dets = data['Det']
+            isCor = data['Cor']
+            temp = addAnswer(qid,dets,isCor)
+            temp2 = viewSpecQuiz(temp)
+            response = {'display': temp2}
+            return jsonify(response)
+
+
         #User functions
 
         if (data['request'] == 'getQuiz'):

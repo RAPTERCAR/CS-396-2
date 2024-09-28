@@ -44,6 +44,30 @@ def viewSpecQuiz(ID):
             s = s + "A:" + str(any) + "<br>"
     conn.close()
     return s
+def addQuestion(ID,dets):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "INSERT OR IGNORE INTO questions (quiz, desc) VALUES (?, ?)"
+    cursor.execute(query,(ID,dets))
+    conn.commit()
+    conn.close()
+    print("added quiz")
+    s = "added question"
+    return s
+def addAnswer(ID,dets,isCor):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "INSERT OR IGNORE INTO answers (quest, desc, isCorrect) VALUES (?, ?, ?)"
+    cursor.execute(query,(ID,dets,isCor))
+    print("added answer")
+    query = "SELECT quiz FROM questions WHERE quid = ?"
+    cursor.execute(query,(ID,))
+    s = cursor.fetchone()
+    x = s[0]
+    print(x)
+    conn.commit()
+    conn.close()
+    return x
         
         
         
