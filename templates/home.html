@@ -2,14 +2,16 @@
 <html>
 <head>
   <title>Quiz Site</title>
+  <script src="{{url_for('static',filename='js/userpage.js')}}"></script>
 </head>
 <body>
   <h1>Quiz Site</h1>
-  <button id="stats-button">Show Statistics</button>
-  <div id="stats-container"></div>
 
-  <button id="quiz-button">Quiz1</button>
+  <div id="quiz-buttons-container">
+    <template id="quiz-button-template">
+      <button></button>
+    </template>
+  </div>
 
-  <script src= "userpage.js"></script>
 </body>
 </html>

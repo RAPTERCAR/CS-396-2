@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify, redirect, session
 from init import sys_init
 from uLogin import login, User
 from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz
+from dbManip import createQuiz, viewAllQuiz
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -93,7 +95,31 @@ def accessData():
             return jsonify(response)
         #User functions
 
-            
+        if (data['request'] == 'getQuiz'):
+            conn = sqlite3.connect('quiz.db')
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT * FROM quiz'
+            )
+            out = cursor.fetchall()
+            quizzes = [{'name': quiz[1], 'time_limit': quiz[2]} for quiz in out]
+            conn.close()
+            return jsonify(quizzes)
+        
+@app.route('/search', methods=['POST'])
+def search_quiz():
+    search_term = request.json['searchTerm']
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        'SELECT qid, qName FROM quiz WHERE qName LIKE ?', ('%' + search_term + '%',)
+    )
+    out = cursor.fetchall()
+    quizzes = [{'id': quiz[0], 'name': quiz[1]} for quiz in out]
+    if quizzes:
+        return jsonify(quizzes)
+    else:
+        return jsonify([])
 
 
 @app.route('/logout')
