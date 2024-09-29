@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, session
+from flask import Flask, render_template, request, jsonify, redirect, session, url_for
 from init import sys_init
 from uLogin import login, User
 from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz, addQuestion, addAnswer
@@ -131,17 +131,25 @@ def accessData():
 @app.route('/search', methods=['POST'])
 def search_quiz():
     search_term = request.json['searchTerm']
+    print(f"Search term: {search_term}")  # Debug: print search term
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
     cursor.execute(
         'SELECT qid, qName FROM quiz WHERE qName LIKE ?', ('%' + search_term + '%',)
     )
     out = cursor.fetchall()
+    print(f"Query result: {out}")  # Debug: print query result
     quizzes = [{'id': quiz[0], 'name': quiz[1]} for quiz in out]
+    print(f"Quizzes list: {quizzes}")  # Debug: print quizzes list
     if quizzes:
-        return jsonify(quizzes)
+        return jsonify({'success': True, 'quizzes': quizzes})
     else:
-        return jsonify([])
+        return jsonify({'success': False})
+    
+
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
 
 
 @app.route('/logout')

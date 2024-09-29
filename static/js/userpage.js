@@ -18,27 +18,30 @@ window.onload = function() {
   
   
   const searchInput = document.getElementById('search-input');
-  const searchButton = document.getElementById('search-button');
+const searchButton = document.getElementById('search-button');
 
-  searchButton.addEventListener('click', () => {
-    const searchTerm = searchInput.value.trim();
-    if (searchTerm) {
-      fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({searchTerm})
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.length > 0) {
-          // redirect to quiz page
-          window.location.href = `/quiz/${data[0].id}`;
-        } else {
-          alert('No quiz found with that name');
-        }
-      })
-    }
-  });
+searchButton.addEventListener('click', () => {
+  const searchTerm = searchInput.value.trim();
+  if (searchTerm) {
+    fetch('/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({searchTerm})
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.quizzes);
+      if (data.success) {
+        window.location.href = 'quiz';
+      } else {
+        alert("Quiz not found");
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    })
+  }
+});
 }
