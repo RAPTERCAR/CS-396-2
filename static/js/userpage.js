@@ -1,3 +1,4 @@
+import { loadQuiz } from './quizpage.js';
 window.onload = function() {
   fetch('/data', {
     method: 'POST',
@@ -15,33 +16,29 @@ window.onload = function() {
     document.getElementById('quizzes').innerHTML = html;
   })
   .catch(error => console.error('Error:', error));
-  
-  
-  const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
 
-searchButton.addEventListener('click', () => {
-  const searchTerm = searchInput.value.trim();
-  if (searchTerm) {
-    fetch('/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({searchTerm})
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.quizzes);
-      if (data.success) {
-        window.location.href = 'quiz';
-      } else {
-        alert("Quiz not found");
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    })
-  }
-});
+  const searchInput = document.getElementById('search-input');
+  const searchButton = document.getElementById('search-button');
+
+  searchButton.addEventListener('click', () => {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm) {
+      fetch('/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchTerm: searchTerm })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const quizId = data.quizzes[0].id;
+          window.location.href = `quiz?quiz_id=${quizId}`;
+        } else {
+          console.log('No quizzes found');
+        }
+      });
+    }
+  });
 }

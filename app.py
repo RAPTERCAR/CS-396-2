@@ -3,6 +3,7 @@ from init import sys_init
 from uLogin import login, User
 from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz, addQuestion, addAnswer
 import sqlite3
+import json
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -150,6 +151,26 @@ def search_quiz():
 @app.route('/quiz')
 def quiz():
     return render_template('quiz.html')
+
+@app.route('/quest/<int:quiz_id>')
+def get_questions(quiz_id):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "SELECT * FROM questions WHERE quiz = ?"
+    cursor.execute(query, (quiz_id,))
+    questions = cursor.fetchall()
+    questions_data = []
+    for question in questions:
+        query = "SELECT * FROM answers WHERE quest = ?"
+        cursor.execute(query, (question[0],))
+        answers = cursor.fetchall()
+        questions_data.append({
+            'question': question,
+            'answers': answers
+        })
+    conn.close()
+    return jsonify(questions_data)
+
 
 
 @app.route('/logout')
