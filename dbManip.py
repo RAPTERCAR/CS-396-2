@@ -68,7 +68,33 @@ def addAnswer(ID,dets,isCor):
     conn.commit()
     conn.close()
     return x
-        
+def deleteQuiz(ID):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "DELETE FROM quiz WHERE qid = ?"
+    cursor.execute(query,(ID,))
+    s = "quiz deleted"
+    conn.commit()
+    conn.close()
+    return s
+def deleteQuestion(ID):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "DELETE FROM questions WHERE quid = ?"
+    cursor.execute(query,(ID,))
+    s = "question deleted"
+    conn.commit()
+    conn.close()
+    return s
+def deleteAnswer(ID):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "DELETE FROM answers WHERE aid = ?"
+    cursor.execute(query,(ID,))
+    s = "answer deleted"
+    conn.commit()
+    conn.close()
+    return s
         
         
     

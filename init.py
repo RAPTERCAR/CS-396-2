@@ -8,6 +8,9 @@ def sys_init():
 
    # Create a table if it doesn't exist
     cursor.execute('''
+        PRAGMA foreign_keys = ON;
+    ''')
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY,
             username TEXT UNIQUE,
@@ -29,7 +32,7 @@ def sys_init():
             quid INTEGER PRIMARY KEY,
             quiz INTEGER,
             desc TEXT,
-            FOREIGN KEY(quiz) REFERENCES artist(qid)
+            FOREIGN KEY(quiz) REFERENCES artist(qid) ON DELETE CASCADE
         )
               ''')
     cursor.execute('''     
@@ -38,7 +41,7 @@ def sys_init():
             quest INTEGER,
             desc TEXT,
             isCorrect INTEGER,
-            FOREIGN KEY(quest) REFERENCES artist(quid)
+            FOREIGN KEY(quest) REFERENCES artist(quid) ON DELETE CASCADE
         )
         ''')
         

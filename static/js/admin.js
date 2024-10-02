@@ -117,4 +117,76 @@ window.onload=function(){
             console.error('Error:', error);
         });
     });
+    //delete quiz
+    document.getElementById('delq').addEventListener('click', function() {
+        // Example AJAX call using fetch API
+        //
+        console.log('sending data');
+        fetch('/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'request': "delQuiz",
+                'ID': document.getElementById('vspec').value
+        }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('test');
+            document.getElementById('quizView').innerHTML = data.display;
+            document.getElementById('output').innerHTML = data.output;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    //delete question
+    document.getElementById('delque').addEventListener('click', function() {
+        // Example AJAX call using fetch API
+        //
+        console.log('sending data');
+        fetch('/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'request': "delQuestion",
+                'ID': document.getElementById('queid').value
+        }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('test');
+            document.getElementById('quizView').innerHTML = data.display;
+            document.getElementById('output').innerHTML = data.output;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    //delete answer
+    document.getElementById('dela').addEventListener('click', function() {
+        // Example AJAX call using fetch API
+        //
+        console.log('sending data');
+        fetch('/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'request': "delAnswer",
+                'ID': document.getElementById('ansID').value
+        }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('test');
+            document.getElementById('quizView').innerHTML = data.display;
+            document.getElementById('output').innerHTML = data.output;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
 }
