@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{url_for('static',filename='js/admin.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Admin Home</title>
 </head>
 <body>
-    <h1>Admin Page</h1>
-    <h2>Create a Quiz</h2>
-    <label for="quiz name">Name:</label>
-    <input type="text" id="qName" name="quiz name" /><br/><br/>
-    <label for="time limit">Time Limit in Minutes:</label>
-    <input type="number" id="tLimit" name="time limit" /><br/><br/>
-    You may add questions once the quiz is created
-    <button type="submit" id="submitQ">create quiz</button><br>
-    <button type="submit" id="viewAll">view all quizzes</button><br>
-    <label for="quizID">Desired Quiz id:</label>
-    <input type="number" id="vSpec" name="quizID" />
-    <button type="submit" id="viewSpec">View specific quiz</button><br>
-    <h2>add a question</h2><br>
-    <label for="qued">question details:</label>
-    <input type="text" id="qdet" name="qued" />
-    <button type="submit" id="addQue">add Questions</button><br>
-    <h2>add an answer</h2><br>
-    <label for="aed">answers details:</label>
-    <input type="text" id="adet" name="aed" />
-    <label for="queid">question id:</label>
-    <input type="text" id="queid" name="queid" />
-    <label for="correct">is Correct?</label>
-    <input type="checkbox" id="isCor" name="correct" />
-    <button type="submit" id="addAns">add answer</button><br>
-    <label for="ansId">Answer ID:</label>
-    <input type="text" id="ansID" name="ansID" />
-    <button type="submit" id="delq">Delete Quiz</button>
-    <button type="submit" id="delque">Delete Question</button>
-    <button type="submit" id="dela">Delete answer</button>
-
+    <div class="top"><h1>Admin Page</h1></div>
+    <div class="holder">
+        <h2>Quiz/Questions/Answer IDs</h2><br>
+        <label for="quizID">Quiz id:</label>
+        <input type="number" id="vSpec" name="quizID" />
+        <label for="queid">Question id:</label>
+        <input type="number" id="queid" name="queid" />
+        <label for="ansId">Answer ID:</label>
+        <input type="number" id="ansID" name="ansID" />
+    </div>
+    <div class="holder2">
+        <h2>Names and Descriptions</h2><br>
+        <label for="quiz name">Quiz Name:</label>
+        <input type="text" id="qName" name="quiz name" />
+        <label for="time limit">Time Limit in Minutes:</label>
+        <input type="number" id="tLimit" name="time limit" />
+        <label for="qued">question details:</label>
+        <input type="text" id="qdet" name="qued" />
+        <label for="correct">is Answer Correct?</label>
+        <input type="checkbox" id="isCor" name="correct" />
+        <label for="aed">answers details:</label>
+        <input type="text" id="adet" name="aed" />
+    </div>
+    <div class="holder3">
+        <h2>Functions</h2><br>
+        <button type="submit" id="submitQ">create quiz</button>
+        <button type="submit" id="viewAll">view all quizzes</button>
+        <button type="submit" id="viewSpec">View specific quiz</button>
+        <button type="submit" id="addAns">add answer</button>
+        <button type="submit" id="addQue">add Questions</button>
+        <button type="submit" id="delq">Delete Quiz</button>
+        <button type="submit" id="delque">Delete Question</button>
+        <button type="submit" id="dela">Delete answer</button>
+        
+    </div>
     <p id="output"></p> 
     <p id="quizView"></p>
 </body>

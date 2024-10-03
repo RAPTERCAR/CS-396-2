@@ -1,0 +1,29 @@
+body{
+    background-color: seashell;
+}
+.holder{
+    background-color: aquamarine;
+    width: 50%;
+    margin: auto;
+}
+.holder2{
+    background-color: orange;
+    width: 50%;
+    margin: auto;
+}
+.holder3{
+    background-color: greenyellow;
+    width: 50%;
+    margin: auto;
+}
+.top{
+    width: 100%;
+    background-color: rgb(144, 144, 254);
+    top: 0%;
+    left: 0%;
+}
+
+h1,h2{
+    text-align: center;
+    color:rgb(113, 113, 113);
+}
