@@ -193,8 +193,32 @@ def get_questions(quiz_id):
             'question': question,
             'answers': answers
         })
+    
+    # Fetch the time limit for the quiz
+    query = "SELECT time FROM quiz WHERE qid = ?"
+    cursor.execute(query, (quiz_id,))
+    time_limit = cursor.fetchone()[0]
+    
     conn.close()
-    return jsonify(questions_data)
+    return jsonify({'questions': questions_data, 'time_limit': time_limit})
+
+@app.route('/submit_quiz/<int:quiz_id>', methods=['POST'])
+def submit_quiz(quiz_id):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = "SELECT * FROM questions WHERE quiz = ?"
+    cursor.execute(query, (quiz_id,))
+    questions = cursor.fetchall()
+    score = 0
+    for question in questions:
+        query = "SELECT * FROM answers WHERE quest = ? AND isCorrect = 1"
+        cursor.execute(query, (question[0],))
+        correct_answer = cursor.fetchone()[2]
+        user_answer = request.json.get('answers')[str(question[0])]
+        if user_answer == correct_answer:
+            score += 1
+    conn.close()
+    return jsonify({'score': score})
 
 
 
