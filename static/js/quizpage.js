@@ -74,8 +74,7 @@ function submitQuiz() {
       answers[questionIds[questionIndex]] = null;
     }
   });
-  
-  // Send the answers to the server
+
   fetch(`/submit_quiz/${quizId}`, {
       method: 'POST',
       headers: {
@@ -85,11 +84,25 @@ function submitQuiz() {
   })
   .then(response => response.json())
   .then(data => {
-      // Display the score
-      const scoreHTML = `
-        <h2>Your score is ${data.score} out of ${Object.keys(answers).length}.</h2>
-        <button onclick="window.location.href = '/home';">Back to Home</button>
-      `;
-      document.getElementById('quiz-container').innerHTML = scoreHTML;
+      const score = data.score;
+      const quizId = data.quiz_id;
+      // Send the score and quiz ID to the /score endpoint
+      fetch('/score', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ score: score, quiz_id: quizId })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Score inserted successfully!');
+      })
+      .catch(error => {
+          console.error('Error inserting score:', error);
+      });
   })
+  .catch(error => {
+      console.error('Error submitting quiz:', error);
+  });
 }

@@ -232,9 +232,23 @@ def submit_quiz(quiz_id):
         if user_answer == correct_answer:
             score += 1
     conn.close()
-    return jsonify({'score': score})
+    return jsonify({'score': score, 'quiz_id': quiz_id})
 
-
+@app.route('/score', methods=['POST'])
+def insert_score():
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    # Retrieve the score and quiz ID from the request
+    score = request.json.get('score')
+    quiz_id = request.json.get('quiz_id')
+    user_id = session['user']['id']
+    # Insert the score into the database
+    query = "INSERT INTO scores (quiz, user, score, attempt) VALUES (?, ?, ?, 1)"
+    cursor.execute(query, (quiz_id, user_id, score))
+    conn.commit()
+    conn.close()
+    # Return a response indicating that the score was inserted successfully
+    return jsonify({'message': 'Score inserted successfully'})
 
 @app.route('/logout')
 def logout():
