@@ -95,6 +95,18 @@ def deleteAnswer(ID):
     conn.commit()
     conn.close()
     return s
+def addUser(uN,pas,fN,lN,r):
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    byte = pas.encode('utf-8')
+    pas2 = bcrypt.hashpw(byte, bcrypt.gensalt())
+    cursor.execute(
+       "INSERT OR IGNORE INTO users (username, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)",
+       (uN, pas2, fN, lN, r,))
+    s = "ok"
+    conn.commit()
+    conn.close()
+    return s
         
         
     

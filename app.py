@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, session, url_for
 from init import sys_init
 from uLogin import login, User
-from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz, addQuestion, addAnswer,deleteAnswer,deleteQuestion, deleteQuiz
+from dbManip import createQuiz, viewAllQuiz, viewSpecQuiz, addQuestion, addAnswer,deleteAnswer,deleteQuestion, deleteQuiz,addUser
 import sqlite3
 import json
 
@@ -132,12 +132,26 @@ def accessData():
             return jsonify(response)
         #delete answer
         if (data['request'] == 'delAnswer'):
-            print("test6")
+            print("test8")
             qid = data['ID']
             temp = deleteAnswer(qid)
             temp2 = viewAllQuiz()
             response = {'output': temp, 'display': temp2}
             return jsonify(response)
+        #add user
+        if (data['request'] == 'addUser'):
+            print("test9")
+            uN = data['username']
+            pas = data['password']
+            fN = data['fName']
+            lN = data['lName']
+            r = data['role']
+
+            temp = addUser(uN,pas,fN,lN,r)
+            print(temp)
+            response = {'status': temp}
+            return jsonify(response)
+
 
 
 
