@@ -75,6 +75,10 @@ function submitQuiz() {
     }
   });
 
+  // Remove the quiz content and submit button
+  const quizContainer = document.getElementById('quiz-container');
+  quizContainer.style.display = 'none';
+
   fetch(`/submit_quiz/${quizId}`, {
       method: 'POST',
       headers: {
@@ -86,6 +90,19 @@ function submitQuiz() {
   .then(data => {
       const score = data.score;
       const quizId = data.quiz_id;
+      
+      // Display the score to the user
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `You scored ${score}%!`;
+      
+      // Add a button to return to the home page
+      const buttonElement = document.createElement('button');
+      buttonElement.textContent = 'Return to Home Page';
+      buttonElement.onclick = () => {
+          window.location.href = 'home';
+      };
+      resultElement.appendChild(buttonElement);
+      
       // Send the score and quiz ID to the /score endpoint
       fetch('/score', {
           method: 'POST',

@@ -223,6 +223,7 @@ def submit_quiz(quiz_id):
     query = "SELECT * FROM questions WHERE quiz = ?"
     cursor.execute(query, (quiz_id,))
     questions = cursor.fetchall()
+    total_questions = len(questions)
     score = 0
     for question in questions:
         query = "SELECT * FROM answers WHERE quest = ? AND isCorrect = 1"
@@ -231,8 +232,9 @@ def submit_quiz(quiz_id):
         user_answer = request.json.get('answers')[str(question[0])]
         if user_answer == correct_answer:
             score += 1
+    percentage = (score / total_questions) * 100
     conn.close()
-    return jsonify({'score': score, 'quiz_id': quiz_id})
+    return jsonify({'score': percentage, 'quiz_id': quiz_id})
 
 @app.route('/score', methods=['POST'])
 def insert_score():
@@ -249,6 +251,30 @@ def insert_score():
     conn.close()
     # Return a response indicating that the score was inserted successfully
     return jsonify({'message': 'Score inserted successfully'})
+
+@app.route('/get_scores', methods=['GET'])
+def get_scores():
+    # Assume you have a `current_user` object with the logged-in user's ID
+    user_id = session['user']['id']
+
+    # Query the 'scores' table to retrieve the user's scores, joining with the 'quizzes' table
+    conn = sqlite3.connect('quiz.db')
+    cursor = conn.cursor()
+    query = """
+        SELECT q.qName AS quiz_name, s.score
+        FROM scores s
+        JOIN quiz q ON s.quiz = q.qid
+        WHERE s.user = ?
+    """
+    cursor.execute(query, (user_id,))
+    scores = cursor.fetchall()
+    conn.close()
+
+    # Convert the list of tuples to a list of dictionaries
+    scores_dict = [{'quiz_name': row[0], 'score': row[1]} for row in scores]
+
+    # Return the scores as JSON
+    return jsonify({'scores': scores_dict})
 
 @app.route('/logout')
 def logout():

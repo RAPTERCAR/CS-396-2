@@ -41,4 +41,24 @@ window.onload = function() {
       });
     }
   });
+
+  document.getElementById('dash-button').addEventListener('click', function() {
+    // Toggle the pop-out menu
+    document.getElementById('score-menu').style.display = 'block';
+
+    // Make an AJAX request to retrieve the user's scores
+    fetch('/get_scores')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const scoreList = document.getElementById('score-list');
+        scoreList.innerHTML = '';
+
+        data.scores.forEach(score => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${score['quiz_name']}: ${score['score']}%`;
+          scoreList.appendChild(listItem);
+        });
+      })
+  });
 }

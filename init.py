@@ -48,13 +48,14 @@ def sys_init():
         CREATE TABLE IF NOT EXISTS scores (
             sid INTEGER PRIMARY KEY,
             quiz INTEGER,
-            user Integer
+            user Integer,
             score Integer,
             attempt Integer,
             FOREIGN KEY(quiz) REFERENCES quiz(qid) ON DELETE CASCADE
             FOREIGN KEY(user) REFERENCES users(id) ON DELETE CASCADE
         )
         ''')
+
         
     
 
