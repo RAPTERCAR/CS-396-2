@@ -32,7 +32,7 @@ def sys_init():
             quid INTEGER PRIMARY KEY,
             quiz INTEGER,
             desc TEXT,
-            FOREIGN KEY(quiz) REFERENCES artist(qid) ON DELETE CASCADE
+            FOREIGN KEY(quiz) REFERENCES quiz(qid) ON DELETE CASCADE
         )
               ''')
     cursor.execute('''     
@@ -41,7 +41,18 @@ def sys_init():
             quest INTEGER,
             desc TEXT,
             isCorrect INTEGER,
-            FOREIGN KEY(quest) REFERENCES artist(quid) ON DELETE CASCADE
+            FOREIGN KEY(quest) REFERENCES questions(quid) ON DELETE CASCADE
+        )
+        ''')
+    cursor.execute('''     
+        CREATE TABLE IF NOT EXISTS scores (
+            sid INTEGER PRIMARY KEY,
+            quiz INTEGER,
+            user Integer
+            score Integer,
+            attempt Integer,
+            FOREIGN KEY(quiz) REFERENCES quiz(qid) ON DELETE CASCADE
+            FOREIGN KEY(user) REFERENCES users(id) ON DELETE CASCADE
         )
         ''')
         
