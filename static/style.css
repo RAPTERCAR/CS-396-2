@@ -1,29 +1,46 @@
 body{
-    background-color: seashell;
+    background-color: rgb(72, 78, 88);
 }
 .holder{
     background-color: aquamarine;
     width: 50%;
     margin: auto;
+    border: solid 2px seashell;
 }
 .holder2{
     background-color: orange;
     width: 50%;
     margin: auto;
+    border: solid 2px seashell;
 }
 .holder3{
     background-color: greenyellow;
     width: 50%;
     margin: auto;
+    border: solid 2px seashell;
+}
+#output{
+    background-color: turquoise;
+    width: 20%;
+    margin: auto;
+    text-align: center;
+    border-left: solid 3px blue;
+}
+#quizView {
+    background-color: tomato;
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    border: solid 2px seashell;
 }
 .top{
     width: 100%;
-    background-color: rgb(144, 144, 254);
+    background-color: rgb(97, 97, 209);
     top: 0%;
     left: 0%;
 }
 
 h1,h2{
     text-align: center;
-    color:rgb(113, 113, 113);
+    color:seashell;
 }
