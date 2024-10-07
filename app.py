@@ -152,11 +152,9 @@ def accessData():
             response = {'status': temp}
             return jsonify(response)
 
-
-
-
         #User functions
 
+        # Gather quiz names and time limits for all quizzes
         if (data['request'] == 'getQuiz'):
             conn = sqlite3.connect('quiz.db')
             cursor = conn.cursor()
@@ -199,6 +197,7 @@ def get_questions(quiz_id):
     cursor.execute(query, (quiz_id,))
     questions = cursor.fetchall()
     questions_data = []
+    # Gather question and answer data
     for question in questions:
         query = "SELECT * FROM answers WHERE quest = ?"
         cursor.execute(query, (question[0],))
@@ -220,11 +219,13 @@ def get_questions(quiz_id):
 def submit_quiz(quiz_id):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
+    # Gather questions from desired quiz
     query = "SELECT * FROM questions WHERE quiz = ?"
     cursor.execute(query, (quiz_id,))
     questions = cursor.fetchall()
     total_questions = len(questions)
     score = 0
+    # Count how many answers were correct
     for question in questions:
         query = "SELECT * FROM answers WHERE quest = ? AND isCorrect = 1"
         cursor.execute(query, (question[0],))
@@ -232,8 +233,10 @@ def submit_quiz(quiz_id):
         user_answer = request.json.get('answers')[str(question[0])]
         if user_answer == correct_answer:
             score += 1
+    # Convert score into a percentage
     percentage = (score / total_questions) * 100
     conn.close()
+    # return score and the quiz id
     return jsonify({'score': percentage, 'quiz_id': quiz_id})
 
 @app.route('/score', methods=['POST'])

@@ -3,13 +3,17 @@
 <head>
   <title>Quiz Site</title>
   <script type="module" src="{{url_for('static',filename='js/userpage.js')}}"></script>
+  <link rel="stylesheet" href="{{url_for('static', filename='userp.css')}}">
 </head>
 <body>
   <h1>Quiz Site</h1><a href="/logout">Logout</a>
 
-  <h2>Available Quizzes:</h2>
-  <input id="search-input" type="text" placeholder="Search for a quiz">
-  <button id="search-button">Search</button>
+  
+  <div class="search-bar"> <!-- holds the search bar and button -->
+    <input id="search-input" type="text" placeholder="Search for a quiz">
+    <button id="search-button">Search</button>
+  </div>
+  <h2 class="quiz-head" id="quizzes-header">Available Quizzes:</h2>
 
   <ul id="quizzes">
     <!-- quizzes will be displayed here -->

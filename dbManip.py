@@ -1,6 +1,7 @@
 import sqlite3
 import bcrypt
 #admin functions
+# Create quiz and insert into database
 def createQuiz(qN,tL):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -12,6 +13,7 @@ def createQuiz(qN,tL):
     conn.commit()
     conn.close()
     return s
+# Displays all current quizzes
 def viewAllQuiz():
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -24,6 +26,7 @@ def viewAllQuiz():
         s = s + str(all) + "<br>"
     conn.close()
     return s
+# Displays only specified quiz
 def viewSpecQuiz(ID):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -44,6 +47,7 @@ def viewSpecQuiz(ID):
             s = s + "A:" + str(any) + "<br>"
     conn.close()
     return s
+# Add question and insert it into database
 def addQuestion(ID,dets):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -54,6 +58,7 @@ def addQuestion(ID,dets):
     print("added quiz")
     s = "added question"
     return s
+# Add answer and insert it into database
 def addAnswer(ID,dets,isCor):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -68,6 +73,7 @@ def addAnswer(ID,dets,isCor):
     conn.commit()
     conn.close()
     return x
+# Delete quiz from the database
 def deleteQuiz(ID):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -77,6 +83,7 @@ def deleteQuiz(ID):
     conn.commit()
     conn.close()
     return s
+# Delete question from the database
 def deleteQuestion(ID):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -86,6 +93,7 @@ def deleteQuestion(ID):
     conn.commit()
     conn.close()
     return s
+# Delete answer from database
 def deleteAnswer(ID):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()
@@ -95,6 +103,7 @@ def deleteAnswer(ID):
     conn.commit()
     conn.close()
     return s
+# add user to the database
 def addUser(uN,pas,fN,lN,r):
     conn = sqlite3.connect('quiz.db')
     cursor = conn.cursor()

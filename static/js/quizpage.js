@@ -31,6 +31,8 @@ export function loadQuiz(quizId) {
         }
       }, 1000);
       
+      //  Display the questions and answers
+
       data.questions.forEach((question, questionIndex) => {
         const questionHTML = `
           <h2>${question.question[2]}</h2>
@@ -66,6 +68,7 @@ function formatTime(seconds) {
 function submitQuiz() {
   const answers = {};
   const questions = document.querySelectorAll('.answers');
+  //check all inputed answers
   questions.forEach((question, questionIndex) => {
     const selectedAnswer = question.querySelector('input[type="radio"]:checked');
     if (selectedAnswer) {

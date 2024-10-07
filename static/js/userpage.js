@@ -22,6 +22,7 @@ window.onload = function() {
 
   searchButton.addEventListener('click', () => {
     const searchTerm = searchInput.value.trim();
+    // Make request that checks if the inserted name is an existing quiz
     if (searchTerm) {
       fetch('/search', {
         method: 'POST',
@@ -33,6 +34,7 @@ window.onload = function() {
       .then(response => response.json())
       .then(data => {
         if (data.success) {
+          // Relocate the user to desired quiz
           const quizId = data.quizzes[0].id;
           window.location.href = `quiz?quiz_id=${quizId}`;
         } else {
